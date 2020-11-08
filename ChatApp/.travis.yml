@@ -4,12 +4,53 @@ node_js:
 
 services:
   - docker
-  
-env:
-  - DOCKER_COMPOSE_VERSION=1.4.2
 
-before_install:
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
+branches:
+    only:
+      - master
+env:
+  - AWS_USER_ID="922803931776" AWS_ECR_API="922803931776.dkr.ecr.us-east-1.amazonaws.com/iic2173-proyecto-semestral-grupo-8"
+
+install:
+  - docker-compose build
+
+script:
+  - docker-compose up --d
+  - docker-compose exec app npm test
+  - zip -r latest *
+  - mkdir -p dpl_cd_upload
+  - mv latest.zip dpl_cd_upload/latest.zip
+
+
+after_success:
+  - docker --version
+  - pip install --user aws-cli
+  - export PATH=$PATH:$HOME/.local/bin
+  - eval $(aws ecr get-login --region sa-east-1 --no-include-email)
+  - docker build -t $AWS_ECR_API:latest
+  - docker tag $AWS_ECR_API:latest
+  - docker push $AWS_ECR_API:latest
+  - docker images
+
+deploy:
+  provider: s3
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  local_dir: dpl_cd_upload
+  skip_cleanup: true
+  bucket: "chatapp-backend-bucket"
+  region: sa-east-1
+  upload-dir: latest
+
+  provider: codedeploy
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  bucket: "chatapp-backend-bucket"
+  key: latest/latest.zip
+  bundle_type: zip
+  application: ChatApp-backend
+  deployment-group: ChatApp-backend
+  region: sa-east-1
+  wait_until_deployed: true
+  on:
+  branch: master
