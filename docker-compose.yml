@@ -17,8 +17,7 @@ services:
             - "4000:4000"
         command:
             "npm run dev"
-        env_file:
-            - ./.env
+
         links:
             - redis
         environment:

@@ -9,7 +9,5 @@ services:
       - "4000:4000"
     command:
       "npm run start"
-    env_file: 
-      - /home/ubuntu/.env
     environment: 
       - NODE_ENV=production
