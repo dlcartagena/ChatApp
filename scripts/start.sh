@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose -f ../docker-compose.yml up -d
+docker-compose -f /home/ubuntu/app/ChatApp/docker-compose.yml up -d
