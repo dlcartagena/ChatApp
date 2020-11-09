@@ -12,9 +12,9 @@ env:
   - AWS_USER_ID="922803931776" AWS_ECR_API="922803931776.dkr.ecr.us-east-1.amazonaws.com/iic2173-proyecto-semestral-grupo-8"
 
 script:
-  - sed -i -e 's/\r$/\n/' start.sh
-  - sed -i -e 's/\r$/\n/' stop.sh
-  - sed -i -e 's/\r$/\n/' install.sh
+  - start.sh
+  - stop.sh
+  - ./script/install.sh
   - docker-compose exec app npm test
   - zip -r latest *
   - mkdir -p dpl_cd_upload
@@ -48,7 +48,7 @@ deploy:
   key: latest/latest.zip
   bundle_type: zip
   application: ChatApp-backend
-  deployment-group: ChatApp-backend
+  deployment_group: ChatApp-backend
   region: sa-east-1
   wait_until_deployed: true
   on:
