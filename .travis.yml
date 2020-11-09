@@ -11,6 +11,9 @@ branches:
 env:
   - AWS_USER_ID="922803931776" AWS_ECR_API="922803931776.dkr.ecr.us-east-1.amazonaws.com/iic2173-proyecto-semestral-grupo-8"
 
+before_install:
+  - pip install -U pip
+  - pip install awscli
 
 script:
   - bash scripts/start.sh
