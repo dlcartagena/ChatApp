@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker-compose exec app npm test
+docker-compose -f /home/ubuntu/app/docker-compose.yml exec app npm test
