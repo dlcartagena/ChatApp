@@ -4,8 +4,7 @@ var supertest = require("supertest");
 var should = require("should");
 
 // This agent refers to PORT where the program is running.
-
-var server = supertest.agent(`http://localhost:${PORT}`);
+var server = supertest.agent(`http://localhost:${process.env.PORT}`);
 
 // UNIT test begin
 

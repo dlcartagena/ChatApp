@@ -1,0 +1,15 @@
+version: '3'
+services:
+  api:
+    container_name: iic2173-proyecto-semestral-grupo-8
+    image: 922803931776.dkr.ecr.us-east-1.amazonaws.com/iic2173-proyecto-semestral-grupo-8:latest
+    
+    restart: always
+    ports:
+      - "4000:4000"
+    command:
+      "npm run start"
+    env_file: 
+      - /home/ubuntu/.env
+    environment: 
+      - NODE_ENV=production

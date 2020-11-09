@@ -15,7 +15,9 @@ install:
   - docker-compose build
 
 script:
-  - docker-compose up --d
+  - sed -i -e 's/\r$/\n/' start.sh
+  - sed -i -e 's/\r$/\n/' stop.sh
+  - sed -i -e 's/\r$/\n/' install.sh
   - docker-compose exec app npm test
   - zip -r latest *
   - mkdir -p dpl_cd_upload
