@@ -15,6 +15,7 @@ before_install:
   - pip install --user awscli
   - export PATH=$PATH:$HOME/.local/bin
 
+
 script:
   - bash scripts/start.sh
   - bash scripts/stop.sh
