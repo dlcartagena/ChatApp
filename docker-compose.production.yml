@@ -9,5 +9,9 @@ services:
       - "4000:4000"
     command:
       "npm run start"
+
+    env_file: 
+      - /home/ubuntu/secrets/.env
+
     environment: 
       - NODE_ENV=production

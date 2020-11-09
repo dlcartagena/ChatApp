@@ -11,16 +11,8 @@ branches:
 env:
   - AWS_USER_ID="922803931776" AWS_ECR_API="922803931776.dkr.ecr.us-east-1.amazonaws.com/iic2173-proyecto-semestral-grupo-8"
 
-before_install:
-  - pip install --user awscli
-  - export PATH=$PATH:$HOME/.local/bin
-
 
 script:
-  - bash scripts/start.sh
-  - bash scripts/stop.sh
-  - bash scripts/install.sh
-  - bash scripts/tests.sh
   - zip -r latest *
   - mkdir -p dpl_cd_upload
   - mv latest.zip dpl_cd_upload/latest.zip
@@ -37,11 +29,7 @@ after_success:
   - docker images
 
 deploy:
-  provider: script
-  script: bash scripts/deploy.sh
-  on:
-    branch: master
-
+  
   provider: s3
   access_key_id: $AWS_ACCESS_KEY_ID
   secret_access_key: $AWS_SECRET_ACCESS_KEY

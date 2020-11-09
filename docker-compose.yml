@@ -18,7 +18,7 @@ services:
         command:
             "npm run dev"
         env_file:
-            /home/ubuntu/.env
+            - /home/ubuntu/secrets/.env
         links:
             - redis
         environment:
