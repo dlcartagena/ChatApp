@@ -29,20 +29,20 @@ after_success:
   - docker images
 
 deploy:
-  
+
   provider: s3
   access_key_id: $AWS_ACCESS_KEY_ID
   secret_access_key: $AWS_SECRET_ACCESS_KEY
   local_dir: dpl_cd_upload
   skip_cleanup: true
-  bucket: "chatapp-backend-bucket"
+  bucket: chatapp-backend-bucket
   region: us-east-1
   upload-dir: latest
 
   provider: codedeploy
   access_key_id: $AWS_ACCESS_KEY_ID
   secret_access_key: $AWS_SECRET_ACCESS_KEY
-  bucket: "chatapp-backend-bucket"
+  bucket: chatapp-backend-bucket
   key: latest/latest.zip
   bundle_type: zip
   application: ChatApp-backend
