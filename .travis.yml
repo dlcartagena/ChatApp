@@ -26,14 +26,7 @@ script:
   - mv latest.zip dpl_cd_upload/latest.zip
 
 
-after_success:
-  - docker --version
-  - export PATH=$PATH:$HOME/.local/bin
-  - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $AWS_USER_ID.dkr.ecr.us-east-1.amazonaws.com
-  - docker build -t $AWS_ECR_API:latest api
-  - docker tag $AWS_ECR_API:latest $AWS_ECR_API:latest
-  - docker push $AWS_ECR_API:latest
-  - docker images
+
 
 deploy:
 
