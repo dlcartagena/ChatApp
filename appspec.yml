@@ -10,7 +10,7 @@ permissions:
     owner: ubuntu
 hooks:
   ApplicationStop:
-    - location: stop.sh
+    - location: ./stop.sh
       timeout: 600
       runas: ubuntu
   AfterInstall:
