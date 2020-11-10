@@ -1,64 +1,54 @@
 language: node_js
 node_js:
-  - 12
-
+- 12
 services:
-  - docker
-
+- docker
 branches:
-    only:
-      - master
+  only:
+  - master
 env:
+  matrix:
   - AWS_USER_ID="922803931776" AWS_ECR_API="922803931776.dkr.ecr.us-east-1.amazonaws.com/iic2173-proyecto-semestral-grupo-8"
-
+  global:
+    secure: LC2WR+YOUx9RPmHjfXQmaCH0s5zDvwsITyy1SZYwTK95tfu4dC8dLshpjA948Btk3DH4Ke9sF8xXJiPRzcOzEuP7lIsNZSltFhG50AKAv/IgH0Oq+llH6ApeFN8vpOaesHjvuPVa/ILskMqeNW5FRE/11lX6du3uKP0URqSzLuIGeqcyx9pTW0F5yngf2xbaDETrRusnR/m6V/UB4474+Ck2IfuyVa5ZdMbEYIx1hG5l9Is7qESG7xcozsBYnW12DT3qhLIaM7sWrpxnlCaExocZ1GL9zcCp0HO7YcBmQZ/I72XwYnUGEneV5OQaHSBPHLznvuqcDdJoHxlmuBOwYGlcsKAc51J9kJkRmAe+eJzvdf4czWnKT+c7ZufqowtW+FsKHay5NKgSGOulrPW44J/+HLLPQBpTMDAlRGOk5xPI2rSp120Hwsfn59gYEF7ViBqgsZh0ryWFJf02oLeEkOvPQDPo8wyjR4hF3t1lkNPtQEBlWCSqdlNj4aZizBQjpwNCpgtVRIInPvulHxbloL3EfDQXaazfbYJVZbZ52+gSJXVMHejk0OVR8Tg3yfVAYurlKE3LVShoFb+H2PIotWNenkNa/SLm0piyrPr0I23Zxf28ghjTfKwsL5gWou2MzP/R4tYrOsiKZfFVd61CXLciMXSa6EpbGD1LJYG70eM=
 before_install:
-  - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" 
-  - unzip awscliv2.zip
-  - sudo ./aws/install
-  - sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-  - sudo chmod +x /usr/local/bin/docker-compose
-  - docker-compose --version
-
-
+- curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+- unzip awscliv2.zip
+- sudo ./aws/install
+- sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname
+  -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+- sudo chmod +x /usr/local/bin/docker-compose
+- docker-compose --version
 script:
-  - bash scripts/tests.sh
-  - bash scripts/start.sh
-  - bash scripts/stop.sh
-  - bash scripts/install.sh
-  - zip -r latest *
-  - mkdir -p dpl_cd_upload
-  - mv latest.zip dpl_cd_upload/latest.zip
-
-
+- bash scripts/tests.sh
+- bash scripts/start.sh
+- bash scripts/stop.sh
+- bash scripts/install.sh
+- zip -r latest *
+- mkdir -p dpl_cd_upload
+- mv latest.zip dpl_cd_upload/latest.zip
 after_success:
-  - docker --version
-  - export PATH=$PATH:$HOME/.local/bin
-  - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $AWS_USER_ID.dkr.ecr.us-east-1.amazonaws.com
-  - docker build -t $AWS_ECR_API:latest api
-  - docker tag $AWS_ECR_API:latest $AWS_ECR_API:latest
-  - docker push $AWS_ECR_API:latest
-  - docker images
-
+- docker --version
+- export PATH=$PATH:$HOME/.local/bin
+- aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin
+  $AWS_USER_ID.dkr.ecr.us-east-1.amazonaws.com
+- docker build -t $AWS_ECR_API:latest api
+- docker tag $AWS_ECR_API:latest $AWS_ECR_API:latest
+- docker push $AWS_ECR_API:latest
+- docker images
 deploy:
-
-  provider: s3
-  access_key_id: $AWS_ACCESS_KEY_ID
-  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  provider: codedeploy
+  access_key_id: "$AWS_ACCESS_KEY_ID"
+  secret_access_key: "$AWS_SECRET_ACCESS_KEY"
   local_dir: dpl_cd_upload
   skip_cleanup: true
-  bucket: "chatapp-backend-bucket"
+  bucket: chatapp-backend-bucket
   region: us-east-1
   upload-dir: latest
-
-  provider: codedeploy
-  access_key_id: $AWS_ACCESS_KEY_ID
-  secret_access_key: $AWS_SECRET_ACCESS_KEY
-  bucket: "chatapp-backend-bucket"
   key: latest/latest.zip
   bundle_type: zip
   application: ChatApp-backend
   deployment_group: ChatApp-backend
-  region: us-east-1
   wait_until_deployed: true
   on:
   branch: master
