@@ -38,6 +38,8 @@ deploy:
   bucket: "chatapp-backend-bucket"
   region: us-east-1
   upload-dir: latest
+  on:
+    branch: master
 
   provider: codedeploy
   access_key_id: ${AWS_ACCESS_KEY_ID}
