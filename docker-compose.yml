@@ -8,6 +8,7 @@ services:
     app:
         build:
             context: .
+        image: $AWS_ACCESS_KEY_ID.dkr.ecr.us-east-1.amazonaws.com/iic2173-proyecto-semestral-grupo-8
         container_name: chat-application
         restart: always
         volumes:
