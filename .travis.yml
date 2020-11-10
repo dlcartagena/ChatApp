@@ -27,7 +27,7 @@ after_success:
   - sudo ./aws/install
   - export PATH=$PATH:$HOME/.local/bin
   - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $AWS_USER_ID.dkr.ecr.us-east-1.amazonaws.com
-  - docker build -t $AWS_ECR_API:latest
+  - docker build -t $AWS_ECR_API:latest .
   - docker tag $AWS_ECR_API:latest
   - docker push $AWS_ECR_API:latest
   - docker images
