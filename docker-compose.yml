@@ -18,8 +18,7 @@ services:
             - "4000:4000"
         command:
             "npm run dev"
-        env_file:
-            - /home/ubuntu/secrets/.env
+
         links:
             - redis
         environment:
@@ -29,8 +28,7 @@ services:
         image: postgres
         volumes: 
             - postgresqlVol:/var/lib/postgresql/data
-        env_file: 
-            - /home/ubuntu/.env
+
         ports:
             - "5432:5432"
     nginx:
