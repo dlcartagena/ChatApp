@@ -3,22 +3,19 @@ os: linux
 
 files:
   - source: scripts
-    destination: /home/ubuntu/app/scripts
+    destination: /home/ubuntu/app/
 permissions:
   - object: scripts
     pattern: "**"
     owner: ubuntu
 
-artifacts:
-  files:
-    - appspec.yml
 hooks:
   ApplicationStop:
-    - location: scripts/stop.sh
+    - location: ./stop.sh
       timeout: 600
       runas: ubuntu
  
   ApplicationStart:
-    - location: scripts/start.sh
+    - location: ./start.sh
       timeout: 600
       runas: ubuntu
