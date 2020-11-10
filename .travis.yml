@@ -21,10 +21,10 @@ before_install:
 
 
 script:
-  - bash tests.sh
-  - bash start.sh
-  - bash stop.sh
-  - bash install.sh
+  - bash scripts/tests.sh
+  - bash scripts/start.sh
+  - bash scripts/stop.sh
+  - bash scripts/install.sh
   - zip -r latest *
   - mkdir -p dpl_cd_upload
   - mv latest.zip dpl_cd_upload/latest.zip
