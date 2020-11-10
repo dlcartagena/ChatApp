@@ -8,6 +8,10 @@ permissions:
   - object: scripts
     pattern: "**"
     owner: ubuntu
+    
+artifacts:
+  files:
+    - appspec.yml
 hooks:
   ApplicationStop:
     - location: ./stop.sh
