@@ -14,7 +14,7 @@ env:
 before_install:
   - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" 
   - unzip awscliv2.zip
-  
+
 script:
   - zip -r latest *
   - mkdir -p dpl_cd_upload
@@ -26,7 +26,7 @@ after_success:
 
   - sudo ./aws/install
   - export PATH=$PATH:$HOME/.local/bin
-  - eval $(aws ecr get-login --region us-east-1 --no-include-email)
+  - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $AWS_USER_ID.dkr.ecr.us-east-1.amazonaws.com
   - docker build -t $AWS_ECR_API:latest
   - docker tag $AWS_ECR_API:latest
   - docker push $AWS_ECR_API:latest
