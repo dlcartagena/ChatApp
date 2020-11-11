@@ -4,7 +4,6 @@ os: linux
 files:
   - source: scripts
     destination: /home/ubuntu/app
-    overwrite: true
 permissions:
   - object: scripts
     pattern: "**"
@@ -18,6 +17,7 @@ hooks:
     - location: install.sh
       timeout: 600
       runas: ubuntu
+      overwrite: true
   ApplicationStart:
     - location: start.sh
       timeout: 600
