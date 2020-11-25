@@ -2,10 +2,10 @@ version: 0.0
 os: linux
 
 files:
-  - source: scripts
+  - source: /
     destination: /home/ubuntu/app
 permissions:
-  - object: ./scripts
+  - object: /
     pattern: "**"
     owner: ubuntu
 hooks:
