@@ -23,15 +23,6 @@ script:
   - mkdir -p dpl_cd_upload
   - mv latest.zip dpl_cd_upload/latest.zip
 
-after_success:
-  - docker --version  # document the version travis is using
-  - pip install --user awscli # install aws cli w/o sudo
-  - eval $(aws ecr get-login --region sa-east-1 --no-include-email) #needs AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY envvars
-  - docker build -t ${AWS_ECR_API}:latest api
-  - docker tag ${AWS_ECR_API}:latest
-  - docker push ${AWS_ECR_API}:latest
-  - docker images
-
 deploy:
   - provider: s3
     access_key_id: ${AWS_ACCESS_KEY_ID}
