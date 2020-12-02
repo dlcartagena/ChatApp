@@ -10,14 +10,14 @@ permissions:
     owner: ubuntu
 hooks:
   ApplicationStop:
-    - location: scripts/stop.sh
+    - location: scripts/stop_unix.sh
       timeout: 1000
       runas: ubuntu
   AfterInstall:
-    - location: scripts/install.sh
+    - location: scripts/install_unix.sh
       timeout: 600
       runas: ubuntu
   ApplicationStart:
-    - location: scripts/start.sh
+    - location: scripts/start_unix.sh
       timeout: 600
       runas: ubuntu
