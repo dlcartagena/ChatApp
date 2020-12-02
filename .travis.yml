@@ -20,6 +20,9 @@ before_install:
 
 script:
   - echo "no tests!" #Tests go here
+  - sed -i -e "s/^M//g" scripts/start.sh
+  - sed -i -e "s/^M//g" scripts/stop.sh
+  - sed -i -e "s/^M//g" scripts/install.sh
   - zip -r latest *
   - mkdir -p dpl_cd_upload
   - mv latest.zip dpl_cd_upload/latest.zip
