@@ -2,9 +2,9 @@ version: '3'
 services:
   api:
     container_name: iic2173-proyecto-semestral-grupo-8
-    image: $AWS_ACCESS_KEY_ID.dkr.ecr.us-east-1.amazonaws.com/iic2173-proyecto-semestral-grupo-8
-    
+    image: $AWS_ACCESS_KEY_ID.dkr.ecr.us-east-1.amazonaws.com/iic2173-proyecto-semestral-grupo-8:latest
     restart: always
+    
     ports:
       - "4000:4000"
     command:
