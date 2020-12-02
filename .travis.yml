@@ -20,6 +20,9 @@ before_install:
 
 script:
   - echo "no tests!" #Tests go here
+  - chmod 777 scripts/start.sh
+  - chmod 777 scripts/stop.sh
+  - chmod 777 scripts/install.sh
   - zip -r latest *
   - mkdir -p dpl_cd_upload
   - mv latest.zip dpl_cd_upload/latest.zip
