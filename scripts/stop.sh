@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose -f /home/travis/build/dlcartagena/ChatApp/docker-compose.travis.yml down
+docker-compose -f /home/ubuntu/app/docker-compose.travis.yml down
