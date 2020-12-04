@@ -19,7 +19,7 @@ before_install:
   - docker-compose --version
 
 script:
-  - echo "no tests!" #Tests go here
+  - echo "no tests girl!" #Tests go here
   - sed -i -e 's/\r$//' scripts/start.sh
   - sed -i -e 's/\r$//' scripts/stop.sh
   - sed -i -e 's/\r$//' scripts/install.sh
